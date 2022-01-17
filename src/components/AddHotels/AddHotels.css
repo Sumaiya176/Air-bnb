@@ -1,0 +1,16 @@
+.add-hotel-input {
+    height: 45px;
+    width: 60%;
+    border-radius: 5px;
+    border: 2px solid gray;
+}
+
+.add-hotel-submitInput {
+    height: 45px;
+    width: 120px;
+    border-radius: 5px;
+    border: 2px solid gray;
+    color: white;
+    background-color: rgb(5, 5, 78);
+    font-size: 20px ;
+}

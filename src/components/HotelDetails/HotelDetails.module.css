@@ -1,0 +1,19 @@
+.single_img {
+    height: 300px;
+}
+
+.country {
+    margin-top: -20px;
+}
+
+.bed {
+    display:flex;
+}
+
+.text_color {
+    color: grey;
+}
+
+#reserve_btn{
+    background: linear-gradient(to bottom right, #06f599 0%, #e7f884 160%);
+}
