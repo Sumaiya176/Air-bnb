@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Hotels = ({searchedLocation}) => {
-    console.log(searchedLocation);
+    //console.log(searchedLocation);
     const [datas, setDatas] = useState([]);
 
     let navigate = useNavigate();
@@ -17,14 +17,14 @@ const Hotels = ({searchedLocation}) => {
         fetch(`http://localhost:5000/selectedhotels/${searchedLocation}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 setDatas(data)
             })
             
     }, [datas.length])
 
     const productDetailHandle = (id) => {
-        console.log("iiidddd",id);
+        //console.log("iiidddd",id);
         navigate(`/hotelDetails/${id}`);
         //history.push("hotelDetails/:Id");
     }
@@ -38,7 +38,7 @@ const Hotels = ({searchedLocation}) => {
                     return (
                             <div 
                             onClick={() => productDetailHandle(data._id
-                                )} 
+                                )} key={data._id}
                             className="col-md-4">
                                 <img className="home_img" src={data.img} alt="home_img" />
                                 <p><small className="mt-2 text-primary">{data.location}</small></p>

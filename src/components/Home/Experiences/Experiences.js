@@ -39,7 +39,7 @@ const Experiences = () => {
         fetch('http://localhost:5000/hotels')
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 setDatas(data)
             })
             
@@ -49,9 +49,9 @@ const Experiences = () => {
         <div>
         <div className="row justify-content-center">
             {
-                datas?.map(((data) => {
+                datas?.map(((data, id) => {
                     return (
-                            <div className="col-md-4">
+                            <div className="col-md-4" key={data._id}>
                                 <img className="home_img" src={data.img} alt="home_img" />
                                 <p><small className="mt-2 text-primary">{data.location}</small></p>
                                 <h6 className="mt-4">{data.name}</h6>

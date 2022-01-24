@@ -1,12 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useParams } from "react-router-dom";
 import home1 from '../../images/home1.jpg';
 import style from './HotelDetails.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faCheckSquare, faSprayCan, faUser, faArrowRight} from '@fortawesome/free-solid-svg-icons'
+import { faHome, faCheckSquare, faSprayCan, faUser, faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import { loginContext } from '../../App';
+
 
 
 const datass = [{
+    id: 1,
     pic: home1,
     title: 'Light bright airy stylish apt & safe preaceful stay',
     location: 'Dhaka',
@@ -19,14 +22,21 @@ const datass = [{
 
 const HotelDetails = () => {
 
+    const [isLogedin] = useContext(loginContext);
+    //console.log(isLogedin.photoURL);
+
     const [datas, setDatas] = useState([]);
+    const [clientInfo, setClientInfo] = useState([]);
     let { Id } = useParams();
+
+    const clientData = JSON.parse(localStorage.getItem('client'));
+    //console.log(clientData);
 
     useEffect(() => {
         fetch(`http://localhost:5000/singlehotel/${Id}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 setDatas(data)
             })
             
@@ -35,9 +45,9 @@ const HotelDetails = () => {
 
     return (
         <div>
-            {datass.map((data) => {
+            {datass.map((data, id) => {
                 return(
-                    <div className={style.text_color}>
+                    <div className={style.text_color} key="id">
                         <img src='https://images.unsplash.com/photo-1537726235470-8504e3beef77?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
                         className={style.single_img} alt="apt"></img>
                         <div className="row">
@@ -96,13 +106,13 @@ const HotelDetails = () => {
                                         <h5 className="text-dark">$35/ night</h5>
                                         <h6 className="py-2">Date</h6>
                                         <div className="row border py-3 rounded">
-                                            <h6 className="col">4/13/2020</h6>
+                                            <h6 className="col">{clientData.arrival}</h6>
                                             <FontAwesomeIcon className="col" size="lg" icon={faArrowRight} />
-                                            <h6 className="col">4/17/2020</h6>
+                                            <h6 className="col">{clientData.departure}</h6>
                                         </div>
                                         <h6 className="pt-3">Guests</h6>
                                         <div className="row border py-2 rounded">
-                                            <h5>3 Guests</h5>
+                                            <h5>{`${clientData.adult+clientData.child}`} Guests</h5>
                                         </div>
                                         <div className="row mt-2">
                                             <p className="col">$35 x 4 nights</p>
@@ -128,9 +138,9 @@ const HotelDetails = () => {
                                             </div>
                                         <hr style={{width:"83%",textAlign:"left",
                                 height:"1.2px",marginLeft:"0"}} />
-                                <div class="d-grid gap-2">
-  <button className="btn py-3" id={style.reserve_btn} type="button">Reserve</button>
-</div>
+                                <div className="d-grid gap-2">
+                                    <button className="btn py-3" id={style.reserve_btn} type="button">Reserve</button>
+                                </div>
                                     </div>
                                   </div>
                             </div>

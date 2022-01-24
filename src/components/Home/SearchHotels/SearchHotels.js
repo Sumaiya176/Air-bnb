@@ -13,8 +13,17 @@ const SearchHotels = ({ isSearched, setIsSearched, setSearchedLocation }) => {
     formState: { errors },
   } = useForm()
   const onSubmit = (data) => {
-    console.log(data)
-    setSearchedLocation(data.location)
+    //console.log(data);
+    setSearchedLocation(data.location);
+
+    localStorage.setItem('client', JSON.stringify(data));
+
+    fetch('http://localhost:5000/addClient', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 
+    }, 
+    body: JSON.stringify(data)
+    })
   }
   return (
     <div>
@@ -107,7 +116,7 @@ const SearchHotels = ({ isSearched, setIsSearched, setSearchedLocation }) => {
           </div>
         </form>
       </div>
-      <div class="mt-2 d-grid gap-2 col-6 mx-auto">
+      <div className="mt-2 d-grid gap-2 col-6 mx-auto">
         <button className="btn btn-primary" onClick={searchButtonHandler}>
           Button
         </button>
